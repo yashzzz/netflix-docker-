@@ -7,7 +7,7 @@ import  mongoose from "mongoose";
 // })
 
 const databaseConnection = () =>{
-          mongoose.connect("mongodb+srv://shreynetflix:shreynet@shreynetflix.a1gqsua.mongodb.net/").then(()=>{
+          mongoose.connect("mongodb+srv://yashsaxena935:u58vgWz8stC8UUtv@test-pro-db.k69tkkl.mongodb.net/?retryWrites=true&w=majority&appName=test-pro-db").then(()=>{
           console.log("mongodb connected successfully")
          }).catch((error)=>{
           console.log(error);
