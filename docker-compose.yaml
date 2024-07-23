@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./netflix
+
+    ports:
+      - 81:3000   
+    
+    depends_on:
+      - backend  
+
+  backend:
+    build: ./backend
+    ports:
+      - 8001:8000
+   
+    depends_on:
+      - mongodb      
+
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    
+volumes:
+  data:
