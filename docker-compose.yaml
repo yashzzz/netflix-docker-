@@ -1,26 +1,44 @@
-version: '3.8'
 services:
-  frontend:
-    build: ./netflix
-
+  back:
+    container_name: backend
+    build: 
+      context: ./backend
     ports:
-      - 81:3000   
-    
-    depends_on:
-      - backend  
-
-  backend:
-    build: ./backend
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    restart: always      
+    networks:
+      - frontend-backend
+      - backend-mongo  
+  front:
+    container_name: frontend
+    build: 
+      context: ./netflix
     ports:
-      - 8001:8000
-   
-    depends_on:
-      - mongodb      
-
+      - "3000:80"
+    restart: always
+    stdin_open: true
+    tty: true 
+    volumes:
+      - ./netflix:/app/frontend
+      - /app/node_modules  
+    networks:
+      - frontend-backend    
   mongodb:
-    image: 'mongo'
+    image: mongo
+    restart: always
     volumes:
       - data:/data/db
-    
+    networks:
+      - backend-mongo  
+    ports:
+      - "27017:27017"
+networks:
+  backend-mongo:
+  frontend-backend:
+
 volumes:
-  data:
+  data:      
+      
